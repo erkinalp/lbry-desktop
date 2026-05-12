@@ -150,7 +150,7 @@ export default function DownloadManager(props: Props): React$Node {
             }
           }
 
-          const file: FileItem = { ...entry, uri };
+          const file: FileItem = ({ ...entry, uri }: any);
           nextItems.push(file);
 
           if (!file.completed && uri) {
