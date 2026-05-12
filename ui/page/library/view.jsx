@@ -1,8 +1,6 @@
 // @flow
 import * as ICONS from 'constants/icons';
-import * as PAGES from 'constants/pages';
 import React from 'react';
-import Button from 'component/button';
 import Card from 'component/common/card';
 import Icon from 'component/common/icon';
 import Page from 'component/page';

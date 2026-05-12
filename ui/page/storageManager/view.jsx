@@ -54,7 +54,7 @@ export default function StorageManager(): React$Node {
   const [pageUris, setPageUris] = React.useState(1);
   const [pageUnmapped, setPageUnmapped] = React.useState(1);
 
-  const makeUri = (name, claimId, url) => (url ? url : name && claimId ? `lbry://${name}#${claimId}` : null);
+  const makeUri = (name, claimId, url) => url || (name && claimId ? `lbry://${name}#${claimId}` : null);
 
   const refresh = React.useCallback(() => {
     setLoading(true);
@@ -226,13 +226,13 @@ export default function StorageManager(): React$Node {
         (resolved && resolved.canonical_url);
 
       if (canonical) {
-        const match = /lbry:\/\/(\@[A-Za-z0-9_\-\.]+)/.exec(canonical);
+        const match = /lbry:\/\/(@[A-Za-z0-9_\-.]+)/.exec(canonical);
         if (match && match[1]) {
           return match[1];
         }
       }
 
-      const fallback = /lbry:\/\/(\@[A-Za-z0-9_\-\.]+)/.exec(uri);
+      const fallback = /lbry:\/\/(@[A-Za-z0-9_\-.]+)/.exec(uri);
       return (fallback && fallback[1]) || 'Unspecified';
     },
     [getResolved]
