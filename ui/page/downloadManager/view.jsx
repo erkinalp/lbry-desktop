@@ -26,9 +26,7 @@ type FileItem = {
   total_bytes?: number,
   metadata?: ?{
     title?: string,
-    source?: ?{
-      size?: number,
-    },
+    source?: any,
   },
   file_name?: string,
   download_path?: string,
@@ -387,9 +385,9 @@ export default function DownloadManager(props: Props): React$Node {
               label={__('Resume All')}
               onClick={() => {
                 const toStart = items.filter((it) => !it.completed && it.status !== 'running' && it.claim_id);
-                Promise.allSettled(
-                  toStart.map((it) => Lbry.file_set_status({ status: 'start', claim_id: it.claim_id }))
-                ).finally(fetchList);
+                Promise.all(
+                  toStart.map((it) => Lbry.file_set_status({ status: 'start', claim_id: it.claim_id }).catch(() => {}))
+                ).then(fetchList);
               }}
             />
             <Button button="alt" icon={ICONS.REFRESH} label={__('Refresh')} onClick={fetchList} />

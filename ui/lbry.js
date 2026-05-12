@@ -103,6 +103,12 @@ const Lbry = {
   blob_list: (params = {}) => daemonCallWithResult('blob_list', params),
   file_reflect: (params = {}) => daemonCallWithResult('file_reflect', params),
 
+  // Storage management
+  storage_pins: (params = {}) => daemonCallWithResult('storage_pins', params),
+  storage_inventory: (params = {}) => daemonCallWithResult('storage_inventory', params),
+  storage_pin: (params = {}) => daemonCallWithResult('storage_pin', params),
+  storage_unpin: (params = {}) => daemonCallWithResult('storage_unpin', params),
+
   // Wallet utilities
   wallet_balance: (params = {}) => daemonCallWithResult('wallet_balance', params),
   wallet_decrypt: () => daemonCallWithResult('wallet_decrypt', {}),

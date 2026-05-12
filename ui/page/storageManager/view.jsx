@@ -94,14 +94,15 @@ export default function StorageManager(): React$Node {
                 }
               };
 
-              const registerFromClaim = (claim, value) => {
+              const registerFromClaim = (claim: any, value) => {
                 if (!claim) return;
                 register(claim.permanent_url, value);
                 register(claim.canonical_url, value);
                 register(claim.short_url, value);
               };
 
-              Object.entries(res).forEach(([key, value]) => {
+              Object.entries(res).forEach(([key, val]) => {
+                const value: any = val;
                 register(key, value);
                 if (!value || typeof value !== 'object') return;
 
@@ -159,8 +160,8 @@ export default function StorageManager(): React$Node {
           const params: any = { page: 1, page_size: 1 };
           if (it.sd_hash) params.sd_hash = it.sd_hash;
           else if (it.stream_hash) params.stream_hash = it.stream_hash;
-          const res = await Lbry.file_list(params);
-          const item = (res && res.items && res.items[0]) || (Array.isArray(res) ? res[0] : null);
+          const res: any = await Lbry.file_list(params);
+          const item: any = (res && res.items && res.items[0]) || (Array.isArray(res) ? res[0] : null);
           if (item) {
             const title = (item.metadata && item.metadata.title) || item.claim_name || it.name;
             const channel = item.channel_name || (item.signing_channel && item.signing_channel.name);
