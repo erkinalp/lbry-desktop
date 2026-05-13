@@ -182,9 +182,10 @@ export default React.memo<Props>(function VideoJs(props: Props) {
       // Replace volume bar with custom LBRY volume bar
       LbryVolumeBarClass.replaceExisting(player);
 
-      // Add reloadSourceOnError plugin
-      // Use a longer interval for P2P content that needs time to download blobs
-      player.reloadSourceOnError({ errorInterval: 60 });
+      // Disabled reloadSourceOnError: automatic source reloading conflicts with
+      // P2P streaming where blobs download on-demand. The auto-reload creates
+      // overlapping playback attempts ("echoes"). Users can manually retry via
+      // the Retry button shown on error.
 
       // initialize mobile UI
       player.mobileUi(); // Inits mobile version. No-op if Desktop.
