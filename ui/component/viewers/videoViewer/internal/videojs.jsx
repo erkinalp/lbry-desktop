@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import Button from 'component/button';
 import * as ICONS from 'constants/icons';
 import classnames from 'classnames';
@@ -183,7 +183,8 @@ export default React.memo<Props>(function VideoJs(props: Props) {
       LbryVolumeBarClass.replaceExisting(player);
 
       // Add reloadSourceOnError plugin
-      player.reloadSourceOnError({ errorInterval: 10 });
+      // Use longer interval for P2P content that needs time to download blobs
+      player.reloadSourceOnError({ errorInterval: 30 });
 
       // initialize mobile UI
       player.mobileUi(); // Inits mobile version. No-op if Desktop.

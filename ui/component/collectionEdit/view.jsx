@@ -260,7 +260,7 @@ function CollectionForm(props: Props) {
     const collectionClaimIds = JSON.parse(collectionClaimIdsString);
     setParams({ ...params, claims: collectionClaimIds });
     clearCollectionErrors();
-  }, [clearCollectionErrors, params, collectionClaimIdsString, setParams]);
+  }, [collectionClaimIdsString, setParams, clearCollectionErrors]);
 
   React.useEffect(() => {
     let nameError;

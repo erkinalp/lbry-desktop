@@ -12,7 +12,7 @@ const downloadDaemon = (targetPlatform) =>
       const daemonURLTemplate = packageJSON.lbrySettings.lbrynetDaemonUrlTemplate;
       const daemonVersion = packageJSON.lbrySettings.lbrynetDaemonVersion;
       const fallbackVersions =
-        (packageJSON.lbrySettings && packageJSON.lbrySettings.lbrynetDaemonFallbackVersions) || [];
+        (packageJSON.lbrySettings && packageJSON.lbrySettings.lbrynetDaemonCompatibleVersions) || [];
       const daemonDir = path.join(__dirname, '..', packageJSON.lbrySettings.lbrynetDaemonDir);
       let daemonFileName = packageJSON.lbrySettings.lbrynetDaemonFileName;
 
