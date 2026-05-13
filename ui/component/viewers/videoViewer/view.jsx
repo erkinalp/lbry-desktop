@@ -19,7 +19,7 @@ import debounce from 'util/debounce';
 import { formatLbryUrlForWeb, generateListSearchUrlParams } from 'util/url';
 
 const PLAY_TIMEOUT_ERROR = 'play_timeout_error';
-const PLAY_TIMEOUT_LIMIT = 2000;
+const PLAY_TIMEOUT_LIMIT = 30000;
 
 type Props = {
   position: number,

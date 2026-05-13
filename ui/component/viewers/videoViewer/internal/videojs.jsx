@@ -183,7 +183,8 @@ export default React.memo<Props>(function VideoJs(props: Props) {
       LbryVolumeBarClass.replaceExisting(player);
 
       // Add reloadSourceOnError plugin
-      player.reloadSourceOnError({ errorInterval: 10 });
+      // Use a longer interval for P2P content that needs time to download blobs
+      player.reloadSourceOnError({ errorInterval: 60 });
 
       // initialize mobile UI
       player.mobileUi(); // Inits mobile version. No-op if Desktop.
