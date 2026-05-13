@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import Button from 'component/button';
 import * as ICONS from 'constants/icons';
 import classnames from 'classnames';
@@ -134,7 +134,7 @@ export default React.memo<Props>(function VideoJs(props: Props) {
 
   const [reload, setReload] = useState('initial');
 
-  const videoJsOptions = {
+  const videoJsOptions = useMemo(() => ({
     ...VIDEO_JS_OPTIONS,
     autoplay: autoplay,
     sources: [
@@ -153,7 +153,7 @@ export default React.memo<Props>(function VideoJs(props: Props) {
     controlBar: {
       subsCapsButton: false,
     },
-  };
+  }), [autoplay, source, sourceType, poster]);
 
   const { detectFileType, createVideoPlayerDOM } = functions({ source, sourceType, videoJsOptions, isAudio });
 
@@ -245,7 +245,7 @@ export default React.memo<Props>(function VideoJs(props: Props) {
         window.player = undefined;
       }
     };
-  }, [isAudio, source, curried_function, createVideoPlayerDOM, detectFileType, initializeVideoPlayer]);
+  }, [isAudio, source]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update video player and reload when source URL changes
   useEffect(() => {
@@ -279,7 +279,7 @@ export default React.memo<Props>(function VideoJs(props: Props) {
         player.bigPlayButton.hide();
       }
     });
-  }, [source, reload, sourceType, videoJsOptions.sources]);
+  }, [source, reload, sourceType]);
 
   return (
     // $FlowFixMe
