@@ -34,7 +34,7 @@ export default function SettingStorage(props: Props) {
     cleanBlobs().then(() => {
       setCleaning(false);
     });
-  }, []);
+  }, [cleanBlobs]);
 
   return (
     <>
@@ -43,6 +43,10 @@ export default function SettingStorage(props: Props) {
           {isWelcome ? __('Custom Hosting') : __('Hosting')}
           {(isSetting || isCleaning) && <Spinner type={'small'} />}
         </h2>
+        <div>
+          <Button button="link" navigate={`/$/storage-manager`} label={__('Open Storage Manager')} />
+          <Button button="link" navigate={`/$/downloads-manager`} label={__('Open Download Manager')} />
+        </div>
       </div>
       <Card
         id={SETTINGS_GRP.STORAGE}

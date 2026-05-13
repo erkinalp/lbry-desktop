@@ -77,6 +77,7 @@ type Props = {
   resolveUris: (Array<string>) => void,
   fetchModAmIList: () => void,
   isUpdateModalDisplayed: boolean,
+  getDaemonStatus: () => void,
 };
 
 function App(props: Props) {
@@ -108,6 +109,7 @@ function App(props: Props) {
     activeChannelId,
     setActiveChannelIfNotSet,
     setIncognito,
+    getDaemonStatus,
     fetchModBlockedList,
     resolveUris,
     subscriptions,
@@ -197,6 +199,19 @@ function App(props: Props) {
   useHistoryNav(history);
   // @endif
 
+  // @if TARGET='app'
+  useEffect(() => {
+    if (!getDaemonStatus) return undefined;
+
+    getDaemonStatus();
+    const id = setInterval(() => {
+      getDaemonStatus();
+    }, 30000);
+
+    return () => clearInterval(id);
+  }, [getDaemonStatus]);
+  // @endif
+
   useEffect(() => {
     if (referredRewardAvailable && sanitizedReferrerParam && isRewardApproved) {
       setReferrer(sanitizedReferrerParam, true);
@@ -236,7 +251,15 @@ function App(props: Props) {
       fetchModBlockedList();
       fetchModAmIList();
     }
-  }, [hasMyChannels, hasNoChannels, hasActiveChannelClaim, setActiveChannelIfNotSet, setIncognito]);
+  }, [
+    fetchModAmIList,
+    fetchModBlockedList,
+    hasMyChannels,
+    hasNoChannels,
+    hasActiveChannelClaim,
+    setActiveChannelIfNotSet,
+    setIncognito,
+  ]);
 
   useEffect(() => {
     // $FlowFixMe

@@ -43,8 +43,10 @@ let baseConfig = {
           { loader: 'css-loader' },
           { loader: 'postcss-loader',
             options: {
-              plugins: function () {
-                return [ require('postcss-rtl')() ];
+              postcssOptions: {
+                plugins: function() {
+                  return [require('postcss-rtl')()];
+                },
               },
             },
           },
@@ -89,14 +91,17 @@ let baseConfig = {
       'lodash.isempty': 'lodash-es/isEmpty',
       'lodash.forin': 'lodash-es/forIn',
       'lodash.clonedeep': 'lodash-es/cloneDeep',
+      'react/jsx-runtime': 'react/jsx-runtime.js',
       ...ifProduction({}, { 'react-dom': '@hot-loader/react-dom' }),
     },
     symlinks: false,
   },
 
   plugins: [
-    new webpack.IgnorePlugin({resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/}),
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // default value if NODE_ENV is not defined
+    }),
     new DefinePlugin({
       __static: `"${path.join(__dirname, 'static').replace(/\\/g, '\\\\')}"`,
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
