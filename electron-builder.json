@@ -97,8 +97,6 @@
   },
   "deb": {
     "depends": [
-      "gconf2",
-      "gconf-service",
       "libnotify4",
       "libxtst6",
       "libnss3"
